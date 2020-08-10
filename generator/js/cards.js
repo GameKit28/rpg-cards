@@ -90,7 +90,8 @@ function card_element_title(card_data, options) {
 }
 
 function card_element_icon(card_data, options) {
-    var icon = card_data_icon_front(card_data, options);
+    var icons_to_split = card_data_icon_front(card_data, options);
+    var icons = icons_to_split.split(',');
     var classname = "icon";
     if (options.icon_inline) {
         classname = "inlineicon";
@@ -98,8 +99,11 @@ function card_element_icon(card_data, options) {
 
     var result = "";
     result += '<div class="card-title-' + classname + '-container">';
-    result += '    <div class="card-title-' + classname + '" style ="background-image: url(\'' + icon + '\');">';
-    result += '    </div>';
+    result += icons.map(function (value)
+    {
+        return '<div class="card-title-' + classname + '" style ="background-image: url(\'' + value + '\');"></div>';
+
+    });
     result += '</div>';
     return result;
 }

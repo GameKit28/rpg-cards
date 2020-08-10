@@ -65,6 +65,7 @@
     background-size: contain;
     background-color: inherit;
     border-color: inherit;
+    float: right;
 }
 .card-title-icon-container {
     position: absolute;
@@ -74,6 +75,7 @@
     border-radius: 1mm;
     background-color: inherit;
     border-color: inherit;
+    display: flex;
 }
 
 .card-title-inlineicon {
@@ -83,6 +85,7 @@
     background-size: contain;
     background-color: inherit;
     border-color: inherit;
+    float: right;
 }
 .card-title-inlineicon-container {
     position: absolute;
@@ -92,6 +95,7 @@
     border-radius: 1mm;
     background-color: inherit;
     border-color: inherit;
+    display: flex;
 }
 
 .card-title {
