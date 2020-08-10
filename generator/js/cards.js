@@ -98,7 +98,7 @@ function card_element_icon(card_data, options) {
 
     var result = "";
     result += '<div class="card-title-' + classname + '-container">';
-    result += '    <div class="card-title-' + classname + ' icon-' + icon + '">';
+    result += '    <div class="card-title-' + classname + '" style ="background-image: url(\'' + icon + '\');">';
     result += '    </div>';
     result += '</div>';
     return result;
@@ -110,11 +110,19 @@ function card_element_subtitle(params, card_data, options) {
 }
 
 function card_element_inline_icon(params, card_data, options) {
-    var icon = params[0] || "";
+    var result = "";
+    var icons_to_split = params[0] || "";
+    var icons = icons_to_split.split(',');
     var size = params[1] || "40";
     var align = params[2] || "center";
     var color = card_data_color_front(card_data, options);
-    return '<div class="card-element card-inline-icon align-' + align + ' icon-' + icon + '" style ="height:' + size + 'px;min-height:' + size + 'px;width: ' + size + 'px;background-color: ' + color + '"></div>';
+    result += '<div class="card-element" style="display:flex;justify-content:' + align + ';">';
+    result += icons.map(function (value) 
+    {
+        return '<div class="card-element card-inline-icon" style="height:' + size + 'px;min-height:' + size + 'px;width: ' + size + 'px;background-color: ' + color + ';background-image: url(\'' + value + '\');"></div>';
+    });
+    result += '</div>';
+    return result;
 }
 
 function card_element_picture(params, card_data, options) {
@@ -360,7 +368,7 @@ function card_generate_back(data, options) {
 	if (!url)
 	{
 		result += '    <div class="card-back-inner">';
-		result += '      <div class="card-back-icon icon-' + icon + '" ' + style_color + '></div>';
+		result += '      <div class="card-back-icon" style = "background-image: url(\'' + icon + '\'); background-color: ' + color + '"></div>';
 		result += '    </div>';
 	}
     result += '  </div>';
