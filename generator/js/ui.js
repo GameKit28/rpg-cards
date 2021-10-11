@@ -148,7 +148,7 @@ function ui_update_card_list() {
         $('#selected-card')
             .append($("<option></option>")
             .attr("value", i)
-            .text(card.title));
+            .text(ui_get_displayed_title(card)));
     }
 
     ui_update_selected_card();
@@ -284,12 +284,20 @@ function ui_change_option() {
     ui_render_selected_card();
 }
 
+function ui_get_displayed_title(card) {
+    return "".concat("[", card.tags.join(), "] " + card.title);
+}
+
+function ui_set_displayed_title(card) {
+    $("#selected-card option:selected").text(ui_get_displayed_title(card));
+}
+
 function ui_change_card_title() {
     var title = $("#card-title").val();
     var card = ui_selected_card();
     if (card) {
         card.title = title;
-        $("#selected-card option:selected").text(title);
+        ui_set_displayed_title(card);
         ui_render_selected_card();
     }
 }
@@ -375,6 +383,7 @@ function ui_change_card_tags() {
                 return val.trim().toLowerCase();
             });
         }
+        ui_set_displayed_title(card);
         ui_render_selected_card();
     }
 }

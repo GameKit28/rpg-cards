@@ -132,7 +132,7 @@ function card_element_inline_icon(params, card_data, options) {
 function card_element_picture(params, card_data, options) {
     var url = params[0] || "";
     var height = params[1] || "";
-    return '<div class="card-element card-picture" style ="background-image: url(&quot;' + url + '&quot;); background-size: contain; background-position: center;background-repeat: no-repeat; height:' + height + 'px"></div>';
+    return '<div class="card-element card-picture" style ="background-image: url(&quot;' + url + '&quot;); background-position: center;background-repeat: no-repeat; height:' + height + 'px"></div>';
 }
 
 function card_element_ruler(params, card_data, options) {
@@ -366,7 +366,6 @@ function card_generate_back(data, options) {
 	var icon = card_data_icon_back(data, options);
 
     var result = "";
-    console.log('options.rounded_corners', options.rounded_corners);
     result += '<div class="card card-size-' + options.card_size + ' ' + (options.rounded_corners ? 'rounded-corners' : '') + '" ' + style_color + '>';
     result += '  <div class="card-back" ' + background_style + '>';
 	if (!url)

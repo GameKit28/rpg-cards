@@ -411,6 +411,13 @@
                         Return -1 if card_a should appear before card_b.
                     </p>
                     <textarea class="form-control" rows="10" id="sort-function" wrap="off">
+var tagIndex = 0;
+while (tagIndex < card_a.tags.length && tagIndex < card_b.tags.length) {
+    if (card_a.tags[tagIndex] < card_b.tags[tagIndex]) return -1;
+    if (card_a.tags[tagIndex] > card_b.tags[tagIndex]) return 1;
+    tagIndex++;
+}
+
 if (card_a.title < card_b.title) {
     return -1;
 }

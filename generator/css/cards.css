@@ -147,6 +147,7 @@
     height: 80px;
     line-height: 18px;
     margin-bottom: 0.0em;
+    object-fit: contain;
 }
 .card-inline-icon {
     background-size: auto 80%;
@@ -193,6 +194,10 @@
     border-color: inherit;
 }
 
+.card-section img {
+    height: 18.85px;
+}
+
 .card-section + .card-element {
     margin-top: 0.3em;
 }
@@ -219,6 +224,14 @@
 }
 .card-description-text {
     display: inline;
+}
+
+.card-description-text img {
+    height: 13.84px;
+}
+
+.card-property-text img {
+    height: 13.84px;
 }
 
 .card-ruler {
