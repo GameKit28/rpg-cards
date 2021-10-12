@@ -304,7 +304,15 @@ var card_element_generators = {
 
 function card_generate_contents(contents, card_data, options) {
     var result = "";
-    result += '<div class="card-content-container">';
+    
+    //Fill the container with a background image if provided
+    var background_style = "";
+    var url = card_data.background_image_front;
+    if (url) {
+        background_style = 'style ="background-image: url(&quot;' + url + '&quot;); background-size: cover; background-position: center;"';
+    }
+
+    result += '<div class="card-content-container"' + background_style + '>';
     result += contents.map(function (value) {
         var parts = card_data_split_params(value);
         var element_name = parts[0];
