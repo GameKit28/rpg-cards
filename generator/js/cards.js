@@ -314,6 +314,7 @@ function card_generate_contents(contents, card_data, options) {
 
     result += '<div class="card-content-container"' + background_style + '>';
     result += contents.map(function (value) {
+        value = parse_tsv_snippet(card_data, value);
         var parts = card_data_split_params(value);
         var element_name = parts[0];
         var element_params = parts.splice(1);
@@ -334,6 +335,26 @@ function card_repeat(card, count) {
         result.push(card);
     }
     return result;
+}
+
+function parse_tsv_snippet(card, str) {
+    if (tsv_data.size != 0){
+        if(tsv_data.has(card.title)){
+            str = str.replace(/\{\{(.*?)\}\}/g, (match) => {
+                var substr = match.substring(2, match.length - 2);
+                console.log("match found: " + substr);
+                var tsv_value = tsv_data.get(card.title)[substr];
+                if(!tsv_value){
+                    tsv_value = "NOT FOUND";
+                    console.log("Column named " + substr + "not found in tsv file");
+                }
+                console.log(tsv_value);
+                return tsv_value;
+            });
+        }
+    }
+
+    return str;
 }
 
 function card_generate_color_style(color, options) {

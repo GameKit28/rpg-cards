@@ -44,6 +44,9 @@
                 <form style="display:none" id="file-load-form">
                     <input type="file" id="file-load" name="files[]" multiple class="form-control" style="display:none" />
                 </form>
+                <form style="display:none" id="file-loadtsv-form">
+                    <input type="file" id="file-loadtsv" name="files[]" multiple class="form-control" style="display:none" />
+                </form>
                 <form role="form" class="form-horizontal">
                     <div class="form-group">
                         <div class="col-sm-6">
@@ -78,6 +81,11 @@
                             <button type="button" class="btn btn-success btn-block" id="button-generate">Generate</button>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-primary btn-block" id="button-loadtsv">Load TSV</button>
+                        </div>
+                    </div>
                     <!--<span class="help-block">Generated cards open in a new tab or window.</span>-->
                 </form>
                 <h3>Page settings</h3>
@@ -100,6 +108,7 @@
                                 <option value="25x35" selected>2.5&quot; x 3.5&quot; (Poker)</option>
                                 <option value="35x50">3.5&quot; x 5.0&quot;</option>
                                 <option value="75x50">7.5&quot; x 5.0&quot;</option>
+                                <option value="175x225">1.75&quot; x 2.25&quot;</option>
                             </select>
                         </div>
                     </div>

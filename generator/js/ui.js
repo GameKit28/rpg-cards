@@ -1,5 +1,6 @@
 // Ugly global variable holding the current card deck
 var card_data = [];
+var tsv_data = new Map();
 var card_options = card_default_options();
 
 function mergeSort(arr, compare) {
@@ -86,6 +87,60 @@ function ui_load_files(evt) {
 
     // Reset file input
     $("#file-load-form")[0].reset();
+}
+
+function ui_load_tsv(evt) {
+    var reader = new FileReader();
+
+    reader.onload = function (reader) {
+        var text = this.result;
+        tsv_data = tsvToMap(text);
+    };
+
+    reader.readAsText(evt.target.files[0]);
+
+    // Reset file input
+    $("#file-loadtsv-form")[0].reset();
+}
+
+function tsvToMap(str, delimiter = "\t") {
+    console.log(str);
+    
+    str = str.replaceAll('\r', '');
+
+    // slice from start of text to the first \n index
+    // use split to create an array from string by delimiter
+    var headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+  
+    // slice from \n index + 1 to the end of the text
+    // use split to create an array of each tsv value row
+    var rows = str.slice(str.indexOf("\n") + 1).split("\n");
+
+    // Map the rows
+    // split values from each row into an array
+    // use headers.reduce to create an object
+    // object properties derived from headers:values
+    // the object passed as an element of the array
+    const map = new Map();
+    rows.forEach((row) => {
+        if(row) {
+            const values = row.split(delimiter);
+            const el = headers.reduce(function (object, header, index) {
+                var val = values[index];
+                //console.log(val);
+                if (val.charAt(0) === '"' && val.charAt(val.length -1) === '"')
+                {
+                    val = val.substr(1,val.length -2);
+                }
+                object[header] = val;
+                return object;
+            }, {});
+            map.set(values[0], el);
+            console.log(map.get(values[0]));
+        }
+    });
+
+    return map;
 }
 
 function ui_init_cards(data) {
@@ -486,6 +541,8 @@ $(document).ready(function () {
     ui_setup_color_selector();
 
     $("#button-generate").click(ui_generate);
+    $("#button-loadtsv").click(function () { $("#file-loadtsv").click(); });
+    $("#file-loadtsv").change(ui_load_tsv);
     $("#button-load").click(function () { $("#file-load").click(); });
     $("#file-load").change(ui_load_files);
     $("#button-clear").click(ui_clear_all);

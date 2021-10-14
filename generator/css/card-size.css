@@ -89,6 +89,16 @@ page[size="25x35"] {
     height: 2in;
 }
 
+/* Monopoly space card */
+.card-size-175x225 {
+    width:1.75in;
+    height:2.25in;
+}
+.card-size-175x225 .card-back-icon {
+    width: 0.75in;
+    height: 0.75in;
+}
+
 /* Card sizes that fill out the entire sheet of paper (minimal margins) */
 .page[size="A4"] .card-size-full3x3 {
     width:69mm;
