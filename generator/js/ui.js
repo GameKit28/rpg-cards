@@ -95,6 +95,7 @@ function ui_load_tsv(evt) {
     reader.onload = function (reader) {
         var text = this.result;
         tsv_data = tsvToMap(text);
+        ui_update_selected_card();
     };
 
     reader.readAsText(evt.target.files[0]);
@@ -127,7 +128,7 @@ function tsvToMap(str, delimiter = "\t") {
             const values = row.split(delimiter);
             const el = headers.reduce(function (object, header, index) {
                 var val = values[index];
-                //console.log(val);
+                //Trim out enclosing quotation marks if present
                 if (val.charAt(0) === '"' && val.charAt(val.length -1) === '"')
                 {
                     val = val.substr(1,val.length -2);
@@ -164,9 +165,23 @@ function ui_add_new_card() {
 function ui_duplicate_card() {
     if (card_data.length > 0) {
         var old_card = ui_selected_card();
+        var new_card_title = old_card.title + " (Copy)";
+
+        if(tsv_data.size != 0){
+            var card_titles = new Set();
+            card_data.forEach((card) => {card_titles.add(card.title)});
+            //By default, if we have tsv data loaded, use the next entry as the title for the new card
+            for(let [key, value] of tsv_data){
+                if(!card_titles.has(key)){
+                    new_card_title = key;
+                    break;
+                }
+            }
+        }
+
         var new_card = $.extend({}, old_card);
         card_data.push(new_card);
-        new_card.title = new_card.title + " (Copy)";
+        new_card.title = new_card_title;
     } else {
         card_data.push(card_default_data());
     }
@@ -513,12 +528,33 @@ function ui_apply_default_icon_back() {
     ui_render_selected_card();
 }
 
+function json_map_encoder(key, value){
+    if(value instanceof Map) {
+        return {
+          dataType: 'Map',
+          value: Array.from(value.entries()), // or with spread: value: [...value]
+        };
+    } else {
+        return value;
+    }
+}
+
+function json_map_decoder(key, value){
+    if(typeof value === 'object' && value !== null) {
+        if (value.dataType === 'Map') {
+            return new Map(value.value);
+        }
+    }
+    return value;
+}
+
 
 //Adding support for local store
 function local_store_save() {
     if(window.localStorage){
         try {
             localStorage.setItem("card_data", JSON.stringify(card_data));
+            localStorage.setItem("tsv_data", JSON.stringify(tsv_data, json_map_encoder));
         } catch (e){
             //if the local store save failed should we notify the user that the data is not being saved?
             console.log(e);
@@ -529,6 +565,7 @@ function local_store_load() {
     if(window.localStorage){
         try {
             card_data = JSON.parse(localStorage.getItem("card_data")) || card_data;
+            tsv_data = JSON.parse(localStorage.getItem("tsv_data"), json_map_decoder) || new Map();
         } catch (e){
             //if the local store load failed should we notify the user that the data load failed?
             console.log(e);
