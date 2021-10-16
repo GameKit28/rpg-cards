@@ -6,7 +6,7 @@ function card_default_options() {
         foreground_color: "white",
         background_color: "white",
         default_color: "black",
-        default_icon: "ace",
+        default_icon: "ace.png",
         default_title_size: "13",
         page_size: "A4",
         page_rows: 3,
@@ -68,11 +68,11 @@ function card_data_color_back(card_data, options) {
 }
 
 function card_data_icon_front(card_data, options) {
-    return card_data.icon_front || card_data.icon || options.default_icon || "ace";
+    return card_data.icon_front || card_data.icon || options.default_icon || "ace.png";
 }
 
 function card_data_icon_back(card_data, options) {
-    return card_data.icon_back || card_data.icon || options.default_icon || "ace";
+    return card_data.icon_back || card_data.icon || options.default_icon || "ace.png";
 }
 
 function card_data_split_params(value) {
