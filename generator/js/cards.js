@@ -90,7 +90,7 @@ function card_element_title(card_data, options) {
 }
 
 function card_element_icon(card_data, options) {
-    var icons_to_split = card_data_icon_front(card_data, options);
+    var icons_to_split = parse_tsv_snippet(card_data, card_data_icon_front(card_data, options));
     var icons = icons_to_split.split(',');
     var classname = "icon";
     if (options.icon_inline) {
@@ -307,7 +307,7 @@ function card_generate_contents(contents, card_data, options) {
     
     //Fill the container with a background image if provided
     var background_style = "";
-    var url = card_data.background_image_front;
+    var url = parse_tsv_snippet(card_data, card_data.background_image_front);
     if (url) {
         background_style = 'style ="background-image: url(&quot;' + url + '&quot;); background-size: cover; background-position: center;"';
     }
@@ -338,7 +338,7 @@ function card_repeat(card, count) {
 }
 
 function parse_tsv_snippet(card, str) {
-    if (tsv_data.size != 0){
+    if (tsv_data.size != 0 && str){
         if(tsv_data.has(card.title)){
             str = str.replace(/\{\{(.*?)\}\}/g, (match) => {
                 var substr = match.substring(2, match.length - 2);
@@ -382,7 +382,7 @@ function card_generate_front(data, options) {
 function card_generate_back(data, options) {
     var color = card_data_color_back(data, options);
     var style_color = card_generate_color_style(color, options);
-	var url = data.background_image;
+	var url = parse_tsv_snippet(data, data.background_image);
 	var background_style = "";
 	if (url)
 	{
@@ -392,7 +392,7 @@ function card_generate_back(data, options) {
 	{
 		background_style = card_generate_color_gradient_style(color, options);
     }
-	var icon = card_data_icon_back(data, options);
+	var icon = parse_tsv_snippet(data, card_data_icon_back(data, options));
 
     var result = "";
     result += '<div class="card card-size-' + options.card_size + ' ' + (options.rounded_corners ? 'rounded-corners' : '') + '" ' + style_color + '>';
