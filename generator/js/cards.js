@@ -102,7 +102,6 @@ function card_element_icon(card_data, options) {
     result += icons.map(function (value)
     {
         return '<div class="card-title-' + classname + '" style ="background-image: url(\'' + value + '\');"></div>';
-
     });
     result += '</div>';
     return result;
@@ -121,8 +120,9 @@ function card_element_inline_icon(params, card_data, options) {
     var align = params[2] || "center";
     var color = card_data_color_front(card_data, options);
     result += '<div class="card-element" style="display:flex;justify-content:' + align + ';">';
-    result += icons.map(function (value) 
+    result += icons.map(function (value)
     {
+        if(!value) return "";
         return '<div class="card-element card-inline-icon" style="height:' + size + 'px;min-height:' + size + 'px;width: ' + size + 'px;background-color: ' + color + ';background-image: url(\'' + value + '\');"></div>';
     });
     result += '</div>';
@@ -344,11 +344,11 @@ function parse_tsv_snippet(card, str) {
                 var substr = match.substring(2, match.length - 2);
                 console.log("match found: " + substr);
                 var tsv_value = tsv_data.get(card.title)[substr];
-                if(!tsv_value){
+                if(tsv_value === undefined){
                     tsv_value = "NOT FOUND";
-                    console.log("Column named " + substr + "not found in tsv file");
+                    console.log("Column named " + substr + " not found in tsv file");
                 }
-                console.log(tsv_value);
+                console.log("Value: \"" + tsv_value + "\"");
                 return tsv_value;
             });
         }

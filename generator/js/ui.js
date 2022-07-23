@@ -70,7 +70,7 @@ function ui_clear_all() {
 }
 
 function ui_load_files(evt) {
-    // ui_clear_all();
+    ui_clear_all();
 
     var files = evt.target.files;
 
@@ -83,6 +83,7 @@ function ui_load_files(evt) {
         };
 
         reader.readAsText(f);
+        ui_save_file.filename = f.name;
     }
 
     // Reset file input
