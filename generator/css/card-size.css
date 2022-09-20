@@ -99,6 +99,46 @@ page[size="25x35"] {
     height: 0.75in;
 }
 
+/* Character Portrait */
+.card-size-40x10 {
+    width: 4in;
+    height: 1in;
+}
+
+.card-size-40x10 .card-back-icon {
+    width: 0.5in;
+    height: 0.5in;
+    border: 2mm solid;
+}
+
+.card-size-40x10 .card-back {
+    border-radius: 2mm;
+    border-color: inherit;
+    margin: 0mm;
+    flex: 1;
+    display: flex;
+}
+
+.card-size-40x10 .card-back-inner {
+    border-radius: 2mm;
+    border-color: inherit;
+    margin: 1mm;
+    flex: 1;
+    display: flex;
+}
+
+.card-size-40x10 .card-title {
+    position: absolute;
+    padding-left: 2mm;
+    padding-right: 2mm;
+    font-family: Lora, 'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif;
+    font-variant: small-caps;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    border-radius: 0px 0px 4px 0px;
+}
+
 /* Card sizes that fill out the entire sheet of paper (minimal margins) */
 .page[size="A4"] .card-size-full3x3 {
     width:69mm;
