@@ -243,6 +243,23 @@ function ui_save_file() {
 }
 ui_save_file.filename = 'rpg_cards.json';
 
+function ui_update_card_options() {
+    if(card_options){
+        $("#page-size").val(card_options.page_size);
+        $("#page-rows").val(card_options.page_rows);
+        $("#page-columns").val(card_options.page_columns);
+        $("#card-arrangement").val(card_options.card_arrangement);
+        $("#card-size").val(card_options.card_size);
+        $("#background-color").val(card_options.background_color);
+        $("#rounded-corners").val(card_options.rounded_corners);
+    
+        $("#default-color").val(card_options.default_color);
+        $("#default-icon").val(card_options.default_icon);
+        $("#default-title-size").val(card_options.default_title_size);
+        $("#small-icons").checked = card_options.icon_inline;
+    }
+}
+
 function ui_update_selected_card() {
     var card = ui_selected_card();
     if (card) {
@@ -556,6 +573,7 @@ function local_store_save() {
         try {
             localStorage.setItem("card_data", JSON.stringify(card_data));
             localStorage.setItem("tsv_data", JSON.stringify(tsv_data, json_map_encoder));
+            localStorage.setItem("card_options", JSON.stringify(card_options));
         } catch (e){
             //if the local store save failed should we notify the user that the data is not being saved?
             console.log(e);
@@ -567,6 +585,7 @@ function local_store_load() {
         try {
             card_data = JSON.parse(localStorage.getItem("card_data")) || card_data;
             tsv_data = JSON.parse(localStorage.getItem("tsv_data"), json_map_decoder) || new Map();
+            card_options = JSON.parse(localStorage.getItem("card_options")) || card_options;
         } catch (e){
             //if the local store load failed should we notify the user that the data load failed?
             console.log(e);
@@ -630,5 +649,6 @@ $(document).ready(function () {
     $("#sort-execute").click(ui_sort_execute);
     $("#filter-execute").click(ui_filter_execute);
 
+    ui_update_card_options();
     ui_update_card_list();
 });
