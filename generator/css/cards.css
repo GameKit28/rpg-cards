@@ -98,6 +98,13 @@
     display: flex;
 }
 
+.card-title-hiddenicon {
+    display: none;
+}
+.card-title-hiddenicon-container {
+    display: none;
+}
+
 .card-title {
     height: 8mm;
     padding-left: 2mm;
@@ -149,7 +156,7 @@
     margin-bottom: 0.0em;
     object-fit: contain;
 }
-.card-inline-icon {
+.card-content-icon {
     background-size: auto 80%;
     background-repeat: no-repeat;
     background-position: center center;
@@ -157,15 +164,15 @@
     border-radius: 2mm;
 }
 
-.card-inline-icon.align-left {
+.card-content-icon.align-left {
     align-self: flex-start;
 }
 
-.card-inline-icon.align-right {
+.card-content-icon.align-right {
     align-self: flex-end;
 }
 
-.card-inline-icon.align-center {
+.card-content-icon.align-center {
     align-self: center;
 }
 

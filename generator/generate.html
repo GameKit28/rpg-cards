@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>RPG cards</title>
+    <title>Prototype Cards</title>
     <meta charset="UTF-8">
     <!-- Library: jQuery -->
     <script type="text/javascript" src="lib/jquery/jquery.min.js" charset="utf-8"></script>
@@ -163,19 +163,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="title-icon-size" class="col-sm-4 control-label">Title Icon</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="title-icon-size" data-option="title-icon-size">
+                                <option value="standard" selected>Standard</option>
+                                <option value="inline">Inline</option>
+                                <option value="hidden">Hidden</option>
+                            </select>
+                        </div>
+                    </div>
                 </form>
                 <h3>Default values</h3>
                 <form role="form" class="form-horizontal">
-                    <div class="form-group">
-                        <label for="small-icons" class="col-sm-2 control-label">Icon</label>
-                        <div class="col-sm-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" checked id="small-icons"> Use small front icons
-                                </label>
-                            </div>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label for="default-color" class="col-sm-2 control-label">Color</label>
                         <div class="col-sm-10">

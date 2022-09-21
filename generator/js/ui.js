@@ -252,11 +252,11 @@ function ui_update_card_options() {
         $("#card-size").val(card_options.card_size);
         $("#background-color").val(card_options.background_color);
         $("#rounded-corners").val(card_options.rounded_corners);
+        $("#title-icon-size").val(card_options.title_icon_size);
     
         $("#default-color").val(card_options.default_color);
         $("#default-icon").val(card_options.default_icon);
         $("#default-title-size").val(card_options.default_title_size);
-        $("#small-icons").checked = card_options.icon_inline;
     }
 }
 
@@ -483,8 +483,8 @@ function ui_change_default_title_size() {
     ui_render_selected_card();
 }
 
-function ui_change_default_icon_size() {
-    card_options.icon_inline = $(this).is(':checked');
+function ui_change_title_icon_size() {
+    card_options.title_icon_size = $(this).val();
     ui_render_selected_card();
 }
 
@@ -638,11 +638,11 @@ $(document).ready(function () {
     $("#card-size").change(ui_change_option);
     $("#background-color").change(ui_change_option);
     $("#rounded-corners").change(ui_change_option);
+    $("#title-icon-size").change(ui_change_title_icon_size);
 
     $("#default-color").change(ui_change_default_color);
     $("#default-icon").change(ui_change_default_icon);
     $("#default-title-size").change(ui_change_default_title_size);
-    $("#small-icons").change(ui_change_default_icon_size);
 
     $(".icon-select-button").click(ui_select_icon);
 

@@ -14,7 +14,7 @@ function card_default_options() {
         card_arrangement: "doublesided",
         card_size: "25x35",
         card_count: null,
-        icon_inline: true,
+        title_icon_size: "standard",
         rounded_corners: true
     };
 }
@@ -92,9 +92,18 @@ function card_element_title(card_data, options) {
 function card_element_icon(card_data, options) {
     var icons_to_split = parse_tsv_snippet(card_data, card_data_icon_front(card_data, options));
     var icons = icons_to_split.split(',');
-    var classname = "icon";
-    if (options.icon_inline) {
-        classname = "inlineicon";
+    var classname;
+    switch(options.title_icon_size){
+        case "inline": 
+            classname = "inlineicon";
+            break;
+        case "hidden": 
+            classname = "hiddenicon";
+            break;
+        case "standard": 
+        default:
+            classname = "icon";
+            break;
     }
 
     var result = "";
@@ -112,7 +121,7 @@ function card_element_subtitle(params, card_data, options) {
     return '<div class="card-element card-subtitle">' + subtitle + '</div>';
 }
 
-function card_element_inline_icon(params, card_data, options) {
+function card_element_content_icons(params, card_data, options) {
     var result = "";
     var icons_to_split = params[0] || "";
     var icons = icons_to_split.split(',');
@@ -123,7 +132,7 @@ function card_element_inline_icon(params, card_data, options) {
     result += icons.map(function (value)
     {
         if(!value) return "";
-        return '<div class="card-element card-inline-icon" style="height:' + size + 'px;min-height:' + size + 'px;width: ' + size + 'px;background-color: ' + color + ';background-image: url(\'' + value + '\');"></div>';
+        return '<div class="card-element card-content-icon" style="height:' + size + 'px;min-height:' + size + 'px;width: ' + size + 'px;background-color: ' + color + ';background-image: url(\'' + value + '\');"></div>';
     });
     result += '</div>';
     return result;
@@ -295,7 +304,7 @@ var card_element_generators = {
     section: card_element_section,
     disabled: card_element_empty,
     picture: card_element_picture,
-    icon: card_element_inline_icon
+    icon: card_element_content_icons
 };
 
 // ============================================================================
