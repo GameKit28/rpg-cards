@@ -55,6 +55,7 @@
     border-color: inherit;
     border-radius: 4mm;
     background-repeat: no-repeat;
+    background-position: center;
     background-size: contain;
 }
 
@@ -63,6 +64,7 @@
     height: 12mm;
     background-repeat: no-repeat;
     background-size: contain;
+    background-position: center;
     background-color: inherit;
     border-color: inherit;
     float: right;
@@ -84,6 +86,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-color: inherit;
+    background-position: center;
     border-color: inherit;
     float: right;
 }
