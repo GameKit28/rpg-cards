@@ -105,6 +105,10 @@ function ui_load_tsv(evt) {
     $("#file-loadtsv-form")[0].reset();
 }
 
+function ui_clear_tsv(evt) {
+    tsv_data = new Map();
+}
+
 function tsvToMap(str, delimiter = "\t") {
     console.log(str);
     
@@ -600,6 +604,7 @@ $(document).ready(function () {
     $("#button-generate").click(ui_generate);
     $("#button-loadtsv").click(function () { $("#file-loadtsv").click(); });
     $("#file-loadtsv").change(ui_load_tsv);
+    $("#button-cleartsv").click(ui_clear_tsv);
     $("#button-load").click(function () { $("#file-load").click(); });
     $("#file-load").change(ui_load_files);
     $("#button-clear").click(ui_clear_all);
