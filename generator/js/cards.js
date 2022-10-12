@@ -110,7 +110,7 @@ function card_element_icon(card_data, options) {
     result += '<div class="card-title-' + classname + '-container">';
     result += icons.map(function (value)
     {
-        return '<div class="card-title-' + classname + '" style ="background-image: url(\'' + value + '\');"></div>';
+        return '<img class="card-title-' + classname + '" src=' + value + '></img>';
     });
     result += '</div>';
     return result;
@@ -140,8 +140,8 @@ function card_element_content_icons(params, card_data, options) {
 
 function card_element_picture(params, card_data, options) {
     var url = params[0] || "";
-    var height = params[1] || "";
-    return '<div class="card-element card-picture" style ="background-image: url(&quot;' + url + '&quot;); background-position: center;background-repeat: no-repeat; height:' + height + 'px"></div>';
+    var height = params[1] || "80";
+    return '<img class="card-element card-picture" src=' + url + ' style="height:' + height + 'px"></img>';
 }
 
 function card_element_ruler(params, card_data, options) {
