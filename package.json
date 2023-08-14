@@ -2,7 +2,7 @@
   "name": "rpg-cards",
   "version": "1.0.0",
   "description": "RPG card generator",
-  "main": "generator/generate.html",
+  "main": "build/ui.js",
   "devDependencies": {
     "fs-extra": "^3.0.0",
     "mv": "^2.1.1",
@@ -13,7 +13,8 @@
     "walk": "^2.3.9"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild ./js/ui.js --bundle --sourcemap --outfile=./build/ui.js"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,10 @@
   "bugs": {
     "url": "https://github.com/crobi/rpg-cards/issues"
   },
-  "homepage": "https://github.com/crobi/rpg-cards#readme"
+  "homepage": "https://github.com/crobi/rpg-cards#readme",
+  "dependencies": {
+    "esbuild": "^0.19.1",
+    "file-saver": "^2.0.5",
+    "html-to-image": "^1.11.11"
+  }
 }

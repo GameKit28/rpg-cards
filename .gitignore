@@ -1,5 +1,4 @@
 /node_modules
-/generator/js/*.map
-/generator/js/*.d.ts
+/build/*.map
 /temp
 /temp.zip

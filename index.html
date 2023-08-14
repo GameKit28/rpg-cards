@@ -7,26 +7,26 @@
     <script type="text/javascript" src="lib/jquery/jquery.min.js" charset="utf-8"></script>
     <!-- Library: Bootstrap -->
     <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap-theme.min.css" crossorigin="anonymous"/>
     <!-- Library: Bootstrap typeahead -->
     <script type="text/javascript" src="lib/typeahead/bootstrap3-typeahead.min.js" charset="utf-8"></script>
     <!-- Library: Color picker -->
-    <link href="lib/colorpicker/css/bootstrap-colorselector.css" rel="stylesheet" />
+    <link href="lib/colorpicker/css/bootstrap-colorselector.css" rel="stylesheet" crossorigin="anonymous"/>
     <script type="text/javascript" src="lib/colorpicker/js/bootstrap-colorselector.js" charset="utf-8"></script>
     <!-- Data -->
     <script type="text/javascript" src="data/card_data_example.js"></script>
     <!-- Javascript -->
     <script type="text/javascript" src="js/cards.js"></script>
     <script type="text/javascript" src="js/colors.js"></script>
-    <script type="text/javascript" defer src="js/ui.js"></script>
+    <script type="text/javascript" defer src="build/ui.js"></script>
     <!-- CSS -->
-    <link href="css/ui.css" rel="stylesheet" />
-    <link href="css/cards.css" rel="stylesheet" />
-    <link href="css/card-size.css" rel="stylesheet" />
+    <link href="css/ui.css" rel="stylesheet" crossorigin="anonymous"/>
+    <link href="css/cards.css" rel="stylesheet" crossorigin="anonymous"/>
+    <link href="css/card-size.css" rel="stylesheet" crossorigin="anonymous"/>
     <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Lora:700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css' crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Lora:700' rel='stylesheet' type='text/css' crossorigin="anonymous">
 </head>
 <body>
     <div class="container-fluid">
@@ -77,8 +77,13 @@
                         <div class="col-sm-6">
                             <button type="button" class="btn btn-primary btn-block" id="button-filter">Map/Filter</button>
                         </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-6">
-                            <button type="button" class="btn btn-success btn-block" id="button-generate">Generate</button>
+                            <button type="button" class="btn btn-success btn-block" id="button-generate-files">Generate Files</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-success btn-block" id="button-generate">Generate for Print</button>
                         </div>
                     </div>
                     <div class="form-group">

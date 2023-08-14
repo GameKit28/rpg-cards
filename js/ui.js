@@ -1,3 +1,7 @@
+
+import * as htmlToImage from "html-to-image";
+import {saveAs} from "file-saver";
+
 // Ugly global variable holding the current card deck
 var card_data = [];
 var tsv_data = new Map();
@@ -42,7 +46,7 @@ function ui_generate() {
     }
 
     // Generate output HTML
-    var card_html = card_pages_generate_html(card_data, card_options);
+    var card_html = card_pages_generate_html(card_data, card_options, tsv_data);
 
     // Open a new window for the output
     // Use a separate window to avoid CSS conflicts
@@ -56,6 +60,37 @@ function ui_generate() {
     // Send the generated HTML to the new window
     // Use a delay to give the new window time to set up a message listener
     setTimeout(function () { tab.postMessage(card_html, '*'); }, 500);
+}
+
+function ui_generate_files() {
+    if (card_data.length === 0) {
+        alert("Your deck is empty. Please define some cards first, or load the sample deck.");
+        return;
+    }
+
+    save_element_as_file(document.getElementById('card-render-front'), ui_selected_card().title + "-front.png")
+        .catch(function (error) {
+            console.error('Failed to export PNG of card front!', error);
+        });
+
+    save_element_as_file(document.getElementById('card-render-back'), ui_selected_card().title + "-back.png")
+        .catch(function (error) {
+            console.error('Failed to export PNG of card back!', error);
+        });
+}
+
+function save_element_as_file(node, fileName){
+    return htmlToImage.toBlob(node)
+        .then(function (blob) {
+            if(window.saveAs){
+                window.saveAs(blob, fileName);
+            }else{
+                saveAs(blob, fileName);
+            }
+        })
+        .catch(function (error) {
+            console.error('Failed to export node to file.', error);
+        });
 }
 
 function ui_load_sample() {
@@ -297,8 +332,8 @@ function ui_render_selected_card() {
     var card = ui_selected_card();
     $('#preview-container').empty();
     if (card) {
-        var front = card_generate_front(card, card_options);
-        var back = card_generate_back(card, card_options);
+        var front = card_generate_front(card, card_options, tsv_data);
+        var back = card_generate_back(card, card_options, tsv_data);
         $('#preview-container').html(front + "\n" + back);
     }
     local_store_save();
@@ -602,6 +637,7 @@ $(document).ready(function () {
     ui_setup_color_selector();
 
     $("#button-generate").click(ui_generate);
+    $("#button-generate-files").click(ui_generate_files);
     $("#button-loadtsv").click(function () { $("#file-loadtsv").click(); });
     $("#file-loadtsv").change(ui_load_tsv);
     $("#button-cleartsv").click(ui_clear_tsv);

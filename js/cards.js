@@ -89,8 +89,8 @@ function card_element_title(card_data, options) {
     return '<div class="card-title card-title-' + title_size + '">' + title + '</div>';
 }
 
-function card_element_icon(card_data, options) {
-    var icons_to_split = parse_tsv_snippet(card_data, card_data_icon_front(card_data, options));
+function card_element_icon(card_data, options, tsv_data) {
+    var icons_to_split = parse_tsv_snippet(card_data, tsv_data, card_data_icon_front(card_data, options));
     var icons = icons_to_split.split(',');
     var classname;
     switch(options.title_icon_size){
@@ -311,19 +311,19 @@ var card_element_generators = {
 // Card generating functions
 // ============================================================================
 
-function card_generate_contents(contents, card_data, options) {
+function card_generate_contents(contents, card_data, options, tsv_data) {
     var result = "";
     
     //Fill the container with a background image if provided
     var background_style = "";
-    var url = parse_tsv_snippet(card_data, card_data.background_image_front);
+    var url = parse_tsv_snippet(card_data, tsv_data, card_data.background_image_front);
     if (url) {
         background_style = 'style ="background-image: url(&quot;' + url + '&quot;); background-size: cover; background-position: center;"';
     }
 
     result += '<div class="card-content-container"' + background_style + '>';
     result += contents.map(function (value) {
-        value = parse_tsv_snippet(card_data, value);
+        value = parse_tsv_snippet(card_data, tsv_data, value);
         var parts = card_data_split_params(value);
         var element_name = parts[0];
         var element_params = parts.splice(1);
@@ -346,7 +346,7 @@ function card_repeat(card, count) {
     return result;
 }
 
-function parse_tsv_snippet(card, str) {
+function parse_tsv_snippet(card, tsv_data, str) {
     if (tsv_data.size != 0 && str){
         if(tsv_data.has(card.title)){
             str = str.replace(/\{\{(.*?)\}\}/g, (match) => {
@@ -374,24 +374,24 @@ function card_generate_color_gradient_style(color, options) {
     return 'style="background: radial-gradient(ellipse at center, white 20%, ' + color + ' 120%)"';
 }
 
-function card_generate_front(data, options) {
+function card_generate_front(data, options, tsv_data) {
     var color = card_data_color_front(data, options);
     var style_color = card_generate_color_style(color, options);
 
     var result = "";
-    result += '<div class="card card-size-' + options.card_size + ' ' + (options.rounded_corners ? 'rounded-corners' : '') + '" ' + style_color + '>';
-    result += card_element_icon(data, options);
+    result += '<div id="card-render-front" class="card card-size-' + options.card_size + ' ' + (options.rounded_corners ? 'rounded-corners' : '') + '" ' + style_color + '>';
+    result += card_element_icon(data, options, tsv_data);
     result += card_element_title(data, options);
-    result += card_generate_contents(data.contents, data, options);
+    result += card_generate_contents(data.contents, data, options, tsv_data);
     result += '</div>';
 
     return result;
 }
 
-function card_generate_back(data, options) {
+function card_generate_back(data, options, tsv_data) {
     var color = card_data_color_back(data, options);
     var style_color = card_generate_color_style(color, options);
-	var url = parse_tsv_snippet(data, data.background_image);
+	var url = parse_tsv_snippet(data, tsv_data, data.background_image);
 	var background_style = "";
 	if (url)
 	{
@@ -401,10 +401,10 @@ function card_generate_back(data, options) {
 	{
 		background_style = card_generate_color_gradient_style(color, options);
     }
-	var icon = parse_tsv_snippet(data, card_data_icon_back(data, options));
+	var icon = parse_tsv_snippet(data, tsv_data, card_data_icon_back(data, options));
 
     var result = "";
-    result += '<div class="card card-size-' + options.card_size + ' ' + (options.rounded_corners ? 'rounded-corners' : '') + '" ' + style_color + '>';
+    result += '<div id="card-render-back" class="card card-size-' + options.card_size + ' ' + (options.rounded_corners ? 'rounded-corners' : '') + '" ' + style_color + '>';
     result += '  <div class="card-back" ' + background_style + '>';
 	if (!url)
 	{
@@ -526,7 +526,7 @@ function card_pages_generate_style(options) {
     return result;
 }
 
-function card_pages_generate_html(card_data, options) {
+function card_pages_generate_html(card_data, options, tsv_data) {
     options = options || card_default_options();
     var rows = options.page_rows || 3;
     var cols = options.page_columns || 3;
@@ -536,8 +536,8 @@ function card_pages_generate_html(card_data, options) {
     var back_cards = [];
     card_data.forEach(function (data) {
         var count = options.card_count || data.count || 1;
-        var front = card_generate_front(data, options);
-        var back = card_generate_back(data, options);
+        var front = card_generate_front(data, options, tsv_data);
+        var back = card_generate_back(data, options, tsv_data);
         front_cards = front_cards.concat(card_repeat(front, count));
         back_cards = back_cards.concat(card_repeat(back, count));
     });
